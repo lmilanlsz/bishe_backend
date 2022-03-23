@@ -23,15 +23,26 @@ public class UserController extends BaseController {
         //用户登录校验
         User loginUser = userService.login(user);
 
-        //没有抛出异常表示正常
-        result.setCode(HttpStatus.OK.value());
-        result.setData(loginUser);
+        if (loginUser.getIs_admin() == 1) {
+            result.setCode(HttpStatus.CONTINUE.value());
+            result.setData(loginUser);
+            System.out.println(loginUser.getUser_id());
+        } else {
+            //没有抛出异常表示正常
+            result.setCode(HttpStatus.OK.value());
+            result.setData(loginUser);
+            System.out.println(loginUser.getUser_id());
+        }
+
+//        //没有抛出异常表示正常
+//        result.setCode(HttpStatus.OK.value());
+//        result.setData(loginUser);
 
         //声明payload
         Map<String, String> payload = new HashMap<>(2);
 
         //初始化payload
-        payload.put("id", loginUser.getId().toString());
+        payload.put("id", loginUser.getUser_id().toString());
         payload.put("username", loginUser.getUsername());
 
         //获取令牌
@@ -101,17 +112,17 @@ public class UserController extends BaseController {
         return result;
     }
 
-    @PostMapping("updatePwd")
-    public Result<String> updatePwd(User user) throws Exception {
-        Result<String> result = new Result<>();
-        int flag = userService.updatePwd(user);
-
-        if (flag == 1) {
-            result.setCode(HttpStatus.OK.value());
-            result.setMsg("修改密码成功！");
-        }
-
-        return result;
-    }
+//    @PostMapping("updatePwd")
+//    public Result<String> updatePwd(User user) throws Exception {
+//        Result<String> result = new Result<>();
+//        int flag = userService.updatePwd(user);
+//
+//        if (flag == 1) {
+//            result.setCode(HttpStatus.OK.value());
+//            result.setMsg("修改密码成功！");
+//        }
+//
+//        return result;
+//    }
 
 }

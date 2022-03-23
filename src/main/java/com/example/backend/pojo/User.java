@@ -6,7 +6,7 @@ public class User {
     private String user_pwd;
     private int is_admin;
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
@@ -30,7 +30,7 @@ public class User {
         this.user_pwd = user_pwd;
     }
 
-    public int getIs_admin() {
+    public Integer getIs_admin() {
         return is_admin;
     }
 
