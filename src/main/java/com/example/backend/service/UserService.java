@@ -5,6 +5,8 @@ import com.example.backend.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class UserService {
     @Autowired
@@ -23,5 +25,9 @@ public class UserService {
 
     public int register(User user) {
         return userMapper.registerUser(user.getUsername(), user.getUser_pwd());
+    }
+
+    public ArrayList<User> getUserList() {
+        return userMapper.getUserList();
     }
 }

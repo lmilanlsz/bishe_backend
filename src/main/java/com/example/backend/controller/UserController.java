@@ -28,7 +28,7 @@ public class UserController extends BaseController {
             result.setData(loginUser);
             System.out.println(loginUser.getUser_id());
         } else {
-            //没有抛出异常表示正常
+            //没有抛出异常表示正常 
             result.setCode(HttpStatus.OK.value());
             result.setData(loginUser);
             System.out.println(loginUser.getUser_id());

@@ -1,10 +1,10 @@
 package com.example.backend.mapper;
 
 import com.example.backend.pojo.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
 
 @Mapper
 @Repository
@@ -20,4 +20,13 @@ public interface UserMapper {
 
     @Insert("insert into user (username, user_pwd) values (#{username}, #{user_pwd})")
     int registerUser(String username,String user_pwd);
+
+    @Select("select * from user")
+    @Results({
+            @Result(column = "user_id", property = "user_id"),
+            @Result(column = "username", property = "username"),
+            @Result(column = "user_pwd", property = "user_pwd")
+    })
+    ArrayList<User> getUserList();
+
 }
