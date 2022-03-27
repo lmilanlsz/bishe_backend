@@ -5,6 +5,7 @@ import com.example.backend.util.Result;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,40 +27,47 @@ public class AdminController extends BaseController {
         return result;
     }
 
-//    @GetMapping("refund")
-//    @Transactional(rollbackFor = {SQLException.class})
-//    public Result<String> refund(int id,int no,int count){
-//        Result<String> result = new Result<>();
-//        System.out.println("goodsNo"+no);
-//        int flag;
-//        // 修改record
-//        flag = recordService.refund(id);
-//        //获取商品当前数量
-//        int num = goodsService.getGoodsCountByNo(no);
-//        //修改goods
-//        flag = flag & goodsService.updateGoodsInventory(no,num+count);
-//        if(flag==1){
-//            result.setMsg("退货成功");
-//            result.setCode(HttpStatus.OK.value());
-//            result.setData("退货成功");
-//        }else{
-//            result.setMsg("退货失败");
-//            result.setCode(HttpStatus.NOT_FOUND.value());
-//        }
-//        return result;
-//    }
-//
-//    @GetMapping("report/daily")
-//    public Result<ArrayList <String[]>>getDailyReport(){
-//        Result<ArrayList <String[]>> result = new Result<>();
-//        ArrayList<HashMap<String,String>> mapList = recordService.getDailyReport(DateUtil.getCurrDate());
-//        ArrayList <String[]> data = new ArrayList<>();
-//        data.add(new String []{"商品","销售总量","销售总额","净利润"});
-//        for (HashMap<String,String> map:mapList) {
-//            data.add(new String[]{map.get("name"),String.valueOf(map.get("all_count")),String.valueOf(map.get("all_price")),String.valueOf(map.get("profits"))});
-//        }
-//        result.setData(data);
-//        result.setCode(HttpStatus.OK.value());
-//        return result;
-//    }
+    @GetMapping("delete")
+    @Transactional(rollbackFor = {SQLException.class})
+    public Result<String> deleteGoods(int no){
+        //将goods表中对应的goods的status改为=1
+        int flag = userService.deleteUser(no);
+        Result<String> result = new Result<>();
+        if (flag == 1) {
+            result.setCode(HttpStatus.OK.value());
+            result.setMsg("用户删除成功");
+        } else {
+            result.setCode(HttpStatus.NOT_ACCEPTABLE.value());
+            result.setMsg("用户删除失败");
+        }
+        return result;
+    }
+
+    @PostMapping("/upload")
+    @Transactional(rollbackFor = {SQLException.class})
+    public Result<String> uploadUser(){
+        User user = new User();
+        int user_id = Integer.parseInt(request.getParameter("user_id"));
+        user.setUser_id(user_id);
+        user.setUsername(request.getParameter("username"));
+        user.setUser_pwd(request.getParameter("user_pwd"));
+        user.setIs_admin(Integer.parseInt(request.getParameter("is_admin")));
+        int flag;
+        if(user_id != 0){
+            //update操作
+            System.out.println("开始更新操作");
+            flag = userService.updateUser(user);
+        }else{
+            //add操作
+            System.out.println("开始插入操作");
+            flag = userService.insertUser(user);
+        }
+        System.out.println("插入操作完毕");
+        System.out.println(user_id);
+        Result<String> result = new Result<>();
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("用户信息更新成功");
+        result.setData("用户信息更新成功");
+        return result;
+    }
 }

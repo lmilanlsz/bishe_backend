@@ -30,4 +30,16 @@ public class UserService {
     public ArrayList<User> getUserList() {
         return userMapper.getUserList();
     }
+
+    public int updateUser(User user) {
+        return userMapper.updateUser(user);
+    }
+
+    public int insertUser(User user) {
+        return userMapper.insertUser(user);
+    }
+
+    public int deleteUser(int user_id) {
+        return userMapper.deleteUser(user_id);
+    }
 }

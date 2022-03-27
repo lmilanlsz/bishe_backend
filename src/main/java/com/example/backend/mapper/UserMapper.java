@@ -29,4 +29,14 @@ public interface UserMapper {
     })
     ArrayList<User> getUserList();
 
+    @Update("update user set user_id = #{user_id} , username = #{username},user_pwd =#{user_pwd} ," +
+            "is_admin = #{is_admin} where user_id = #{user_id}")
+    int updateUser(User user);
+    @Insert("insert into user (user_id, username, user_pwd, is_admin)" +
+            " values(#{user_id},#{username},#{user_pwd} ,#{is_admin} )")
+    @Options(useGeneratedKeys = true,keyProperty = "no")
+    int insertUser(User user);
+
+    @Delete("delete from user where user_id = #{user_id}")
+    int deleteUser(int user_id);
 }
