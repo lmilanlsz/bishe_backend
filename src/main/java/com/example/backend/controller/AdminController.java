@@ -30,7 +30,6 @@ public class AdminController extends BaseController {
     @GetMapping("delete")
     @Transactional(rollbackFor = {SQLException.class})
     public Result<String> deleteGoods(int no){
-        //将goods表中对应的goods的status改为=1
         int flag = userService.deleteUser(no);
         Result<String> result = new Result<>();
         if (flag == 1) {
