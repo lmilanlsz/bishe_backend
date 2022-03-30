@@ -9,6 +9,15 @@ public class Book {
     public Integer book_is_liked;
     public String book_img;
     public Integer book_status;
+    public Integer book_rate_num;
+
+    public Integer getBook_rate_num() {
+        return book_rate_num;
+    }
+
+    public void setBook_rate_num(Integer book_rate_num) {
+        this.book_rate_num = book_rate_num;
+    }
 
     public Integer getBook_id() {
         return book_id;

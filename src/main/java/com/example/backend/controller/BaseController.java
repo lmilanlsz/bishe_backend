@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 
 import com.example.backend.service.BookService;
+import com.example.backend.service.ReviewService;
 import com.example.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,7 +18,12 @@ public class BaseController {
      */
     @Autowired
     protected UserService userService;
+
+    @Autowired
     protected BookService bookService;
+
+    @Autowired
+    protected ReviewService reviewService;
 
 //    @Autowired
 //    protected GoodsService goodsService;
