@@ -1,9 +1,8 @@
 package com.example.backend.mapper;
 
+import com.example.backend.pojo.Book;
 import com.example.backend.pojo.Review;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -17,4 +16,13 @@ public interface ReviewMapper {
 
     @Delete("delete from review where review_id = #{review_id}")
     int deleteReview(int review_id);
+
+    @Update("update review set user_id = #{user_id} , review_id = #{review_id}, review_rate = #{review_rate}, " +
+            "review_content = #{review_content}, book_id = #{book_id} where review_id = #{review_id}")
+    int updateReview(Review review);
+
+    @Insert("insert into review (user_id, review_id, review_rate, review_content, book_id)" +
+            " values(#{user_id}, #{review_id}, #{review_rate}, #{review_content}, #{book_id}  )")
+    @Options(useGeneratedKeys = true,keyProperty = "no")
+    int insertReview(Review review);
 }

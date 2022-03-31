@@ -20,4 +20,12 @@ public class ReviewService {
     public int deleteReview(int review_id) {
         return reviewMapper.deleteReview(review_id);
     }
+
+    public int updateReview(Review review) {
+        return reviewMapper.updateReview(review);
+    }
+
+    public int insertReview(Review review) {
+        return reviewMapper.insertReview(review);
+    }
 }
