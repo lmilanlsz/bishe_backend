@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @Mapper
 @Repository
@@ -29,4 +30,7 @@ public interface BookMapper {
             " values(#{book_id},#{book_title},#{book_author} ,#{book_category} )")
     @Options(useGeneratedKeys = true,keyProperty = "no")
     int insertBook(Book book);
+
+    @Select("select book_title, book_rate from book order by book_rate desc limit 5")
+    ArrayList<HashMap<String, String>> getBookReport();
 }

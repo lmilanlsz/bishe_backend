@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("book")
@@ -69,6 +70,20 @@ public class BookController extends BaseController {
         result.setCode(HttpStatus.OK.value());
         result.setMsg("用户信息更新成功");
         result.setData("用户信息更新成功");
+        return result;
+    }
+
+    @GetMapping("report/rate")
+    public Result<ArrayList<String[]>> getBookReport() {
+        Result<ArrayList <String[]>> result = new Result<>();
+        ArrayList<HashMap<String, String >> mapList = bookService.getBookReport();
+        ArrayList <String[]> data = new ArrayList<>();
+//        data.add(new String []{"商品","销售总量","销售总额","净利润"});
+        for (HashMap<String, String> map:mapList) {
+            data.add(new String[]{map.get("book_title"), String.valueOf(map.get("book_rate"))});
+        }
+        result.setData(data);
+        result.setCode(HttpStatus.OK.value());
         return result;
     }
 }
