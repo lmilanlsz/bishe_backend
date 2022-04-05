@@ -58,6 +58,7 @@ public class ReviewController extends BaseController {
             //update操作
             System.out.println("开始更新操作");
             flag = reviewService.updateReview(review);
+            flag = bookService.updateBookRate(review.book_id);
         }else{
             //add操作
             System.out.println("开始插入操作");

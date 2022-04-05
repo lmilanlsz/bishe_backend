@@ -1,5 +1,6 @@
 package com.example.backend.controller;
 
+import com.example.backend.pojo.Review;
 import com.example.backend.pojo.User;
 import com.example.backend.util.JwtUtil;
 import com.example.backend.util.Result;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,8 @@ public class UserController extends BaseController {
         Result<User> result = new Result<>();
         //用户登录校验
         User loginUser = userService.login(user);
+        System.out.println(loginUser.getUser_id());
+        System.out.println(loginUser.getUser_pwd() );
 
         if (loginUser.getIs_admin() == 1) {
             result.setCode(HttpStatus.CONTINUE.value());
@@ -109,6 +113,28 @@ public class UserController extends BaseController {
             }
         }
 
+        return result;
+    }
+
+    @PostMapping("/info")
+    public Result<ArrayList<User>> userInfo(int user_id) throws Exception {
+        Result<ArrayList<User>> result = new Result<>();
+        ArrayList<User> userlist = userService.getUserIdById(user_id);
+        System.out.println("已获取");
+        result.setData(userlist);
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取记录成功");
+        return result;
+    }
+
+    @PostMapping("/review")
+    public Result<ArrayList<Review>> getUserReview(int user_id) throws Exception {
+        Result<ArrayList<Review>> result = new Result<>();
+        ArrayList<Review> reviewlist = reviewService.getReviewListByUser(user_id);
+        System.out.println("已获取");
+        result.setData(reviewlist);
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取记录成功");
         return result;
     }
 

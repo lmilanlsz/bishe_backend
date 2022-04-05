@@ -28,4 +28,8 @@ public class ReviewService {
     public int insertReview(Review review) {
         return reviewMapper.insertReview(review);
     }
+
+    public ArrayList<Review> getReviewListByUser(int user_id) {
+        return reviewMapper.getReviewListByUser(user_id);
+    }
 }

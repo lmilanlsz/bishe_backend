@@ -15,6 +15,9 @@ public interface UserMapper {
     @Select("select user_id from user where username = #{username} ")
     String getUserIdByName(String username);
 
+    @Select(("select * from user where user_id = #{user_id}"))
+    ArrayList<User> getUserById(int user_id);
+
     @Select("select count(*) from user where username = #{username}")
     int checkUser(String user);
 

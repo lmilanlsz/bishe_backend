@@ -15,6 +15,10 @@ public class UserService {
         return userMapper.getUser(user.getUsername(), user.getUser_pwd());
     }
 
+    public ArrayList<User> getUserIdById(int user_id) {
+        return userMapper.getUserById(user_id);
+    }
+
     public String getUserIdByName(String username) {
         return userMapper.getUserIdByName(username);
     }
