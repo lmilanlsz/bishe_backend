@@ -86,4 +86,15 @@ public class BookController extends BaseController {
         result.setCode(HttpStatus.OK.value());
         return result;
     }
+
+    @PostMapping("/detail")
+    public Result<Book> getDetail(int book_id) {
+        Result<Book> result = new Result<>();
+        Book book = bookService.getDetail(book_id);
+        System.out.println("图书详情已获取");
+        result.setData(book);
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取记录成功");
+        return result;
+    }
 }

@@ -2,6 +2,7 @@ package com.example.backend.controller;
 
 import com.example.backend.pojo.Review;
 import com.example.backend.pojo.User;
+import com.example.backend.pojo.Wishlist;
 import com.example.backend.util.JwtUtil;
 import com.example.backend.util.Result;
 import org.springframework.http.HttpStatus;
@@ -131,8 +132,19 @@ public class UserController extends BaseController {
     public Result<ArrayList<Review>> getUserReview(int user_id) throws Exception {
         Result<ArrayList<Review>> result = new Result<>();
         ArrayList<Review> reviewlist = reviewService.getReviewListByUser(user_id);
-        System.out.println("已获取");
+        System.out.println("评价已获取");
         result.setData(reviewlist);
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取记录成功");
+        return result;
+    }
+
+    @PostMapping("/wishlist")
+    public Result<ArrayList<Wishlist>> getUserWishlist(int user_id) throws Exception {
+        Result<ArrayList<Wishlist>> result = new Result<>();
+        ArrayList<Wishlist> wishlist = wishlistService.getWishList(user_id);
+        System.out.println("愿望单已获取");
+        result.setData(wishlist);
         result.setCode(HttpStatus.OK.value());
         result.setMsg("获取记录成功");
         return result;

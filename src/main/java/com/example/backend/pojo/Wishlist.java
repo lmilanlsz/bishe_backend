@@ -1,11 +1,31 @@
 package com.example.backend.pojo;
 
+import java.util.Date;
+
 public class Wishlist {
     public Integer user_id;
     public Integer book_id;
-    public String user_name;
+    public String username;
     public String book_title;
     public Integer wishlist_id;
+    public Date wish_date;
+    public Integer wish_status;
+
+    public Integer getWish_status() {
+        return wish_status;
+    }
+
+    public void setWish_status(Integer wish_status) {
+        this.wish_status = wish_status;
+    }
+
+    public Date getWish_date() {
+        return wish_date;
+    }
+
+    public void setWish_date(Date wish_date) {
+        this.wish_date = wish_date;
+    }
 
     public Integer getUser_id() {
         return user_id;
@@ -23,12 +43,12 @@ public class Wishlist {
         this.book_id = book_id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getBook_title() {

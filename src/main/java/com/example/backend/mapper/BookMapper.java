@@ -31,9 +31,12 @@ public interface BookMapper {
     @Options(useGeneratedKeys = true,keyProperty = "no")
     int insertBook(Book book);
 
-    @Select("select book_title, book_rate from book order by book_rate desc limit 5")
+    @Select("select book_title, book_rate from book order by book_rate desc limit 7")
     ArrayList<HashMap<String, String>> getBookReport();
 
     @Update("update book b join review r set b.book_rate =  (b.book_rate * (b.book_rate_num - 1) + r.review_rate)/b.book_rate_num where b.book_id = #{book_id} and r.book_id = #{book_id} ")
     int updateBookRate(int book_id);
+
+    @Select("select * from book where book_id = #{book_id} ")
+    Book getDetail(int book_id);
 }

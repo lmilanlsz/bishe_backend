@@ -37,4 +37,8 @@ public class BookService {
     public int updateBookRate(int book_id) {
         return bookMapper.updateBookRate(book_id);
     }
+
+    public Book getDetail(int book_id) {
+        return bookMapper.getDetail(book_id);
+    }
 }
