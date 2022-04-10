@@ -32,4 +32,12 @@ public class ReviewService {
     public ArrayList<Review> getReviewListByUser(int user_id) {
         return reviewMapper.getReviewListByUser(user_id);
     }
+
+    public ArrayList<Review> getReviewListByBook(int book_id) {
+        return reviewMapper.getReviewByBook(book_id);
+    }
+
+    public Review getMyReview(int book_id, int user_id) {
+        return reviewMapper.getMyReview(book_id, user_id);
+    }
 }

@@ -97,4 +97,15 @@ public class BookController extends BaseController {
         result.setMsg("获取记录成功");
         return result;
     }
+
+    @PostMapping("like")
+    public Result<String> likeBook(int book_id) throws Exception {
+        Result<String> result = new Result<>();
+        int flag = bookService.likeBook(book_id);
+        System.out.println("图书详情已获取");
+        result.setData("推荐成功");
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取记录成功");
+        return result;
+    }
 }

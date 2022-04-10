@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Service
 public class WishlistService {
@@ -22,5 +23,13 @@ public class WishlistService {
 
     public int delete(int wishlist_id) {
         return wishlistMapper.delete(wishlist_id);
+    }
+
+    public int uploadWishlist(int book_id, int user_id, Date date) {
+        return wishlistMapper.uploadWishlist(book_id, user_id, date);
+    }
+
+    public int checkWishlist(int book_id) {
+        return wishlistMapper.checkWishlist(book_id);
     }
 }

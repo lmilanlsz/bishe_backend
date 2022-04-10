@@ -39,4 +39,10 @@ public interface BookMapper {
 
     @Select("select * from book where book_id = #{book_id} ")
     Book getDetail(int book_id);
+
+    @Update("update book set book_is_liked = book_is_liked + 1 where book_id = #{book_id}")
+    int likeBook(int book_id);
+
+    @Update("update book set book_rate_num = book_rate_num + 1 where book_id = #{book_id}")
+    int updateRateNum(int book_id);
 }

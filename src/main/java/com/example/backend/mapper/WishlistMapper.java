@@ -1,13 +1,11 @@
 package com.example.backend.mapper;
 
 import com.example.backend.pojo.Wishlist;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 @Mapper
 @Repository
@@ -21,4 +19,10 @@ public interface WishlistMapper {
 
     @Delete("delete from wishlist where wishlist_id = #{wishlist_id}")
     int delete(int wishlist_id);
+
+    @Insert("insert into wishlist (book_id, user_id, wish_date) values (#{book_id}, #{user_id}, #{date})")
+    int uploadWishlist(int book_id, int user_id, Date date);
+
+    @Select("select count(*) from wishlist where book_id = #{book_id}")
+    int checkWishlist(int book_id);
 }
