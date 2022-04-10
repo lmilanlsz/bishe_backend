@@ -45,4 +45,7 @@ public interface BookMapper {
 
     @Update("update book set book_rate_num = book_rate_num + 1 where book_id = #{book_id}")
     int updateRateNum(int book_id);
+
+    @Select("select * from book order by book_rate_num desc limit 6")
+    ArrayList<Book> getBookByRatedNum();
 }

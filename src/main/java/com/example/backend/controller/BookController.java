@@ -6,16 +6,14 @@ import com.example.backend.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
+@ResponseBody
 @RequestMapping("book")
 public class BookController extends BaseController {
     @GetMapping("list")
@@ -106,6 +104,17 @@ public class BookController extends BaseController {
         result.setData("推荐成功");
         result.setCode(HttpStatus.OK.value());
         result.setMsg("获取记录成功");
+        return result;
+    }
+
+    @GetMapping("byRateNum")
+    public Result<ArrayList<Book>> getBookRateNum() throws Exception {
+        Result<ArrayList<Book>> result = new Result<>();
+        ArrayList<Book> booklist = bookService.getBookByRatedNum();
+        System.out.println("暂停");
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取成功！");
+        result.setData(booklist);
         return result;
     }
 }

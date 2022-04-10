@@ -49,4 +49,8 @@ public class BookService {
     public int updateRateNum(int book_id) {
         return bookMapper.updateRateNum(book_id);
     }
+
+    public ArrayList<Book> getBookByRatedNum() {
+        return bookMapper.getBookByRatedNum();
+    }
 }
