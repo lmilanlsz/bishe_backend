@@ -53,4 +53,8 @@ public class BookService {
     public ArrayList<Book> getBookByRatedNum() {
         return bookMapper.getBookByRatedNum();
     }
+
+    public Book getBookById(int book_id) {
+        return bookMapper.getBookById(book_id);
+    }
 }

@@ -6,6 +6,12 @@ public class User {
     private String user_pwd;
     private int is_admin;
 
+    public User() {}
+
+    public User(int user_id) {
+        this.user_id = user_id;
+    }
+
     public Integer getUser_id() {
         return user_id;
     }

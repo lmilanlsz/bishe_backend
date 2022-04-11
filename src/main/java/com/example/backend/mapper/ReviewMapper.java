@@ -36,4 +36,10 @@ public interface ReviewMapper {
     @Select("select r.review_rate, r.review_content, u.username from review r  " +
             "join user u on r.user_id = u.user_id where r.book_id = #{book_id} and r.user_id = #{user_id}")
     Review getMyReview(int book_id, int user_id);
+
+    @Select("select * from review")
+    ArrayList<Review> getAllReview();
+
+    @Select("select book_id from review where user_id = #{user_id}")
+    ArrayList<Integer> getBookIdByUserId(int user_id);
 }

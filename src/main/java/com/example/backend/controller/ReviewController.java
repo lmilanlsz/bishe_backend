@@ -128,4 +128,8 @@ public class ReviewController extends BaseController {
         result.setData("评价信息更新成功");
         return result;
     }
+
+    public ArrayList<Review> getAllReview() {
+         return reviewService.getAllReview();
+    }
 }

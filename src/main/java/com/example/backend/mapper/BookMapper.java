@@ -48,4 +48,7 @@ public interface BookMapper {
 
     @Select("select * from book order by book_rate_num desc limit 6")
     ArrayList<Book> getBookByRatedNum();
+
+    @Select("select * from book where book_id = #{book_id} ")
+    Book getBookById(int book_id);
 }

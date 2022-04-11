@@ -1,5 +1,6 @@
 package com.example.backend.pojo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Review {
@@ -11,6 +12,22 @@ public class Review {
     public Date review_date;
     public String book_title;
     public String username;
+    public ArrayList<Book> booklist = new ArrayList<>();
+
+    public Review() {}
+
+    public Review(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public Book find(Integer book_id) {
+        for (Book book : booklist) {
+            if (book_id == book.book_id) {
+                return book;
+            }
+        }
+        return null;
+    }
 
     public String getBook_title() {
         return book_title;

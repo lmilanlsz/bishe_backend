@@ -8,12 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 @RestController
-@ResponseBody
 @RequestMapping("book")
 public class BookController extends BaseController {
     @GetMapping("list")
@@ -117,4 +117,6 @@ public class BookController extends BaseController {
         result.setData(booklist);
         return result;
     }
+
+
 }

@@ -18,16 +18,16 @@ public class BaseController {
      * 注入全部service
      */
     @Autowired
-    protected UserService userService;
+    public UserService userService;
 
     @Autowired
-    protected BookService bookService;
+    public BookService bookService;
 
     @Autowired
-    protected ReviewService reviewService;
+    public ReviewService reviewService;
 
     @Autowired
-    protected WishlistService wishlistService;
+    public WishlistService wishlistService;
 
 //    @Autowired
 //    protected GoodsService goodsService;
