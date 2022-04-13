@@ -85,6 +85,20 @@ public class BookController extends BaseController {
         return result;
     }
 
+    @GetMapping("report/category")
+    public Result<ArrayList<String[]>> getBookCategoryReport() {
+        Result<ArrayList <String[]>> result = new Result<>();
+        ArrayList<HashMap<String, String>> mapList = bookService.getBookLikeReport();
+        ArrayList <String[]> data = new ArrayList<>();
+//        data.add(new String []{"商品","销售总量","销售总额","净利润"});
+        for (HashMap<String, String> map:mapList) {
+            data.add(new String[]{map.get("book_title"), String.valueOf(map.get("book_is_liked"))});
+        }
+        result.setData(data);
+        result.setCode(HttpStatus.OK.value());
+        return result;
+    }
+
     @PostMapping("/detail")
     public Result<Book> getDetail(int book_id) {
         Result<Book> result = new Result<>();

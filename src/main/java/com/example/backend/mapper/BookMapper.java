@@ -34,6 +34,9 @@ public interface BookMapper {
     @Select("select book_title, book_rate from book order by book_rate desc limit 7")
     ArrayList<HashMap<String, String>> getBookReport();
 
+    @Select("select book_title, book_is_liked from book order by book_is_liked desc limit 7")
+    ArrayList<HashMap<String, String>> getBookLikeReport();
+
     @Update("update book b join review r set b.book_rate =  (b.book_rate * (b.book_rate_num - 1) + r.review_rate)/b.book_rate_num where b.book_id = #{book_id} and r.book_id = #{book_id} ")
     int updateBookRate(int book_id);
 

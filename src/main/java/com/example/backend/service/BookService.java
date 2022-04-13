@@ -34,6 +34,10 @@ public class BookService {
         return bookMapper.getBookReport();
     }
 
+    public ArrayList<HashMap<String, String>> getBookLikeReport() {
+        return bookMapper.getBookLikeReport();
+    }
+
     public int updateBookRate(int book_id) {
         return bookMapper.updateBookRate(book_id);
     }
