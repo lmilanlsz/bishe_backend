@@ -47,21 +47,35 @@ public class RecommendController extends BaseController {
     }
 
     public double pearson_dis(List<Review> reviews1, List<Review> reviews2) {
-        int n = reviews1.size();
+        float sum_xy = 0;
+        float sum_x = 0;
+        float sum_y = 0;
+        double sum_x2 = 0;
+        double sum_y2 = 0;
+        int n = 0;
+        for (int i = 0; i < reviews1.size(); i++) {
+            Review review1 = reviews1.get(i);
+            for (int j = 0; j < reviews2.size(); j++) {
+                Review review2 = reviews2.get(j);
+                if (review1.book_id == review2.book_id) {
+                    n++;
+                    float x = review1.review_rate;
+                    float y = review2.review_rate;
+                    sum_xy += x * y;
+                    sum_x += x;
+                    sum_y += y;
+                    sum_x2 += Math.pow(x, 2);
+                    sum_y2 += Math.pow(y, 2);
+                }
+            }
+        }
 
-        List<Float> reviews1RateCollect = reviews1.stream().map(A -> A.review_rate).collect(Collectors.toList());
-        List<Float> reviews2RateCollect = reviews2.stream().map(A -> A.review_rate).collect(Collectors.toList());
-
-        double Ex = reviews1RateCollect.stream().mapToDouble(x -> x).sum();
-        double Ey = reviews2RateCollect.stream().mapToDouble(y -> y).sum();
-        double Ex2 = reviews1RateCollect.stream().mapToDouble(x -> Math.pow(x, 2)).sum();
-        double Ey2 = reviews2RateCollect.stream().mapToDouble(y -> Math.pow(y, 2)).sum();
-        double Exy = IntStream.range(0, n).mapToDouble(i -> reviews1RateCollect.get(i)).sum();
-
-        double numerator = Exy - Ex * Ey / n;
-        double denominator = Math.sqrt((Ex2 - Math.pow(Ex, 2) / n) * (Ey2 - Math.pow(Ey, 2) / n));
-        if (denominator == 0) return 0.0;
-        return numerator / denominator;
+        double denominator = Math.sqrt(sum_x2 - Math.pow(sum_x, 2) / n) * Math.sqrt(sum_y2 - Math.pow(sum_y, 2) / n);
+        if (denominator == 0) {
+            return  0;
+        } else {
+            return (sum_xy - (sum_x * sum_y) / n) / denominator;
+        }
     }
 
     @PostMapping("res")

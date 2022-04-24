@@ -30,6 +30,42 @@ public class ReviewController extends BaseController {
         return result;
     }
 
+    @PostMapping("byTitle")
+    public Result<ArrayList<Review>> getReviewListByTitle() {
+        Result<ArrayList<Review>> result = new Result<>();
+        String book_title = request.getParameter("book_title");
+        ArrayList<Review> reviewlist = reviewService.getReviewListByTitle(book_title);
+        System.out.println("暂停");
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取成功！");
+        result.setData(reviewlist);
+        return result;
+    }
+
+    @PostMapping("byUser")
+    public Result<ArrayList<Review>> getReviewListByUsername() {
+        Result<ArrayList<Review>> result = new Result<>();
+        String username = request.getParameter("username");
+        ArrayList<Review> reviewlist = reviewService.getReviewListByUsername(username);
+        System.out.println("暂停");
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取成功！");
+        result.setData(reviewlist);
+        return result;
+    }
+
+    @PostMapping("byRate")
+    public Result<ArrayList<Review>> getReviewListByRate() {
+        Result<ArrayList<Review>> result = new Result<>();
+        Float review_rate = Float.parseFloat(request.getParameter("review_rate"));
+        ArrayList<Review> reviewlist = reviewService.getReviewListByRate(review_rate);
+        System.out.println("暂停");
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取成功！");
+        result.setData(reviewlist);
+        return result;
+    }
+
     @GetMapping("delete")
     @Transactional(rollbackFor = {SQLException.class})
     public Result<String> deleteReview(int no){
@@ -37,10 +73,10 @@ public class ReviewController extends BaseController {
         Result<String> result = new Result<>();
         if (flag == 1) {
             result.setCode(HttpStatus.OK.value());
-            result.setMsg("评价删除成功");
+            result.setMsg("评价屏蔽成功");
         } else {
             result.setCode(HttpStatus.NOT_ACCEPTABLE.value());
-            result.setMsg("评价删除失败");
+            result.setMsg("评价屏蔽失败");
         }
         return result;
     }
@@ -60,7 +96,7 @@ public class ReviewController extends BaseController {
             //update操作
             System.out.println("开始更新操作");
             flag = reviewService.updateReview(review);
-            flag = bookService.updateBookRate(review.book_id);
+            flag = bookService.updateBookRate(review.book_id, review.review_rate);
         }else{
             //add操作
             System.out.println("开始插入操作");
@@ -79,10 +115,17 @@ public class ReviewController extends BaseController {
     public Result<ArrayList<Review>> getReviewByBook(int book_id) throws Exception {
         Result<ArrayList<Review>> result = new Result<>();
         ArrayList<Review> reviewlist = reviewService.getReviewListByBook(book_id);
-        System.out.println("评价已获取");
-        result.setData(reviewlist);
-        result.setCode(HttpStatus.OK.value());
-        result.setMsg("获取记录成功");
+        System.out.println(reviewlist.size());
+        if (reviewlist.size() == 0){
+            result.setData(reviewlist);
+            result.setCode(HttpStatus.NOT_FOUND.value());
+            System.out.println("获得0条评价");
+            result.setMsg("获得0条评价");
+        } else {
+            result.setData(reviewlist);
+            result.setCode(HttpStatus.OK.value());
+            result.setMsg("获取该图书评价成功");
+        }
         return result;
     }
 
@@ -119,7 +162,7 @@ public class ReviewController extends BaseController {
 
         if (flag == 1) {
             int rateNum = bookService.updateRateNum(book_id);
-            int recalculate = bookService.updateBookRate(book_id);
+            int recalculate = bookService.updateBookRate(book_id, review.review_rate);
         }
 
         Result<String> result = new Result<>();
@@ -131,5 +174,25 @@ public class ReviewController extends BaseController {
 
     public ArrayList<Review> getAllReview() {
          return reviewService.getAllReview();
+    }
+
+    @GetMapping("/title")
+    public Result<ArrayList<String>> getBookTitleList() {
+        Result<ArrayList<String>> result = new Result<>();
+        ArrayList<String> titlelist = bookService.getBookTitleList();
+        result.setData(titlelist);
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取图书标题成功");
+        return result;
+    }
+
+    @GetMapping("/user")
+    public Result<ArrayList<String>> getUsernameList() {
+        Result<ArrayList<String>> result = new Result<>();
+        ArrayList<String> userlist = userService.getUsernameList();
+        result.setData(userlist);
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取图书标题成功");
+        return result;
     }
 }

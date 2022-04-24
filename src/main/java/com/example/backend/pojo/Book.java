@@ -5,11 +5,57 @@ public class Book {
     public String book_title;
     public float book_rate;
     public String book_author;
-    public String book_category;
+    public String category_id;
+    public String category_name;
     public Integer book_is_liked;
     public String book_img;
     public Integer book_status;
     public Integer book_rate_num;
+    public String book_press;
+    public String book_desc;
+    public Integer book_page;
+
+
+
+    public String getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public String getBook_press() {
+        return book_press;
+    }
+
+    public void setBook_press(String book_press) {
+        this.book_press = book_press;
+    }
+
+    public String getBook_desc() {
+        return book_desc;
+    }
+
+    public void setBook_desc(String book_desc) {
+        this.book_desc = book_desc;
+    }
+
+    public Integer getBook_page() {
+        return book_page;
+    }
+
+    public void setBook_page(Integer book_page) {
+        this.book_page = book_page;
+    }
 
     public Integer getBook_rate_num() {
         return book_rate_num;
@@ -49,14 +95,6 @@ public class Book {
 
     public void setBook_author(String book_author) {
         this.book_author = book_author;
-    }
-
-    public String getBook_category() {
-        return book_category;
-    }
-
-    public void setBook_category(String book_category) {
-        this.book_category = book_category;
     }
 
     public Integer getBook_is_liked() {

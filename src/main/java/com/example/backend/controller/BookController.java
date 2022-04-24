@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.events.Event;
 
 import java.io.File;
 import java.sql.SQLException;
@@ -47,20 +48,29 @@ public class BookController extends BaseController {
     @Transactional(rollbackFor = {SQLException.class})
     public Result<String> uploadBook(){
         Book book = new Book();
+        int flag = Integer.parseInt(request.getParameter("is_add"));
+        System.out.println(flag);
         int book_id = Integer.parseInt(request.getParameter("book_id"));
         book.setBook_id(book_id);
+        book.setBook_rate_num(Integer.parseInt(request.getParameter("book_rate_num")));
+        book.setBook_is_liked(Integer.parseInt(request.getParameter("book_is_liked")));
+        book.setBook_page(Integer.parseInt(request.getParameter("book_page")));
+        System.out.println(book.book_is_liked);
+        book.setBook_rate(Float.parseFloat(request.getParameter("book_rate")));
+        book.setBook_img(request.getParameter("book_img"));
         book.setBook_title(request.getParameter("book_title"));
         book.setBook_author(request.getParameter("book_author"));
-        book.setBook_category(request.getParameter("book_category"));
-        int flag;
-        if(book_id != 0){
+        book.setCategory_id(request.getParameter("category_id"));
+        book.setBook_desc(request.getParameter("book_desc"));
+        book.setBook_press(request.getParameter("book_press"));
+        if(flag == 0){
             //update操作
             System.out.println("开始更新操作");
-            flag = bookService.updateBook(book);
+            int op = bookService.updateBook(book);
         }else{
             //add操作
             System.out.println("开始插入操作");
-            flag = bookService.insertBook(book);
+            int op = bookService.insertBook(book);
         }
         System.out.println("插入操作完毕");
         System.out.println(book);
@@ -85,14 +95,27 @@ public class BookController extends BaseController {
         return result;
     }
 
-    @GetMapping("report/category")
-    public Result<ArrayList<String[]>> getBookCategoryReport() {
+    @GetMapping("report/like")
+    public Result<ArrayList<String[]>> getBookLikeReport() {
         Result<ArrayList <String[]>> result = new Result<>();
         ArrayList<HashMap<String, String>> mapList = bookService.getBookLikeReport();
         ArrayList <String[]> data = new ArrayList<>();
 //        data.add(new String []{"商品","销售总量","销售总额","净利润"});
         for (HashMap<String, String> map:mapList) {
             data.add(new String[]{map.get("book_title"), String.valueOf(map.get("book_is_liked"))});
+        }
+        result.setData(data);
+        result.setCode(HttpStatus.OK.value());
+        return result;
+    }
+
+    @GetMapping("report/cate")
+    public Result<ArrayList<String[]>> getCategoryReport() {
+        Result<ArrayList <String[]>> result = new Result<>();
+        ArrayList<HashMap<String, String>> mapList = bookService.getCategoryReport();
+        ArrayList <String[]> data = new ArrayList<>();
+        for (HashMap<String, String> map:mapList) {
+            data.add(new String[]{map.get("category_name"), String.valueOf(map.get("count"))});
         }
         result.setData(data);
         result.setCode(HttpStatus.OK.value());
@@ -132,5 +155,31 @@ public class BookController extends BaseController {
         return result;
     }
 
+    @PostMapping("byCate")
+    public Result<ArrayList<Book>> getBookByCategory(String category_name) throws Exception {
+        Result<ArrayList<Book>> result = new Result<>();
+        ArrayList<Book> booklist = bookService.getBookByCategory(category_name);
+        System.out.println("暂停");
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取成功！");
+        result.setData(booklist);
+        return result;
+    }
 
+    @PostMapping("byRate")
+    public Result<ArrayList<Book>> getBookByRate(Float book_rate) {
+        ArrayList<Book> booklist = new ArrayList<>();
+        if (book_rate == 1) {
+            booklist = bookService.getGoodBook();
+        } else if (book_rate == 2) {
+            booklist = bookService.getMidBook();
+        } else if (book_rate == 3) {
+            booklist = bookService.getBadBook();
+        }
+        Result<ArrayList<Book>> result = new Result<>();
+        result.setCode(HttpStatus.OK.value());
+        result.setMsg("获取成功！");
+        result.setData(booklist);
+        return result;
+    }
 }

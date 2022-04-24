@@ -46,4 +46,8 @@ public class UserService {
     public int deleteUser(int user_id) {
         return userMapper.deleteUser(user_id);
     }
+
+    public ArrayList<String> getUsernameList() {
+        return userMapper.getUserNameList();
+    }
 }

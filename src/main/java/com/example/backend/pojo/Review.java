@@ -12,6 +12,8 @@ public class Review {
     public Date review_date;
     public String book_title;
     public String username;
+    public String category_name;
+    public Integer review_status;
     public ArrayList<Book> booklist = new ArrayList<>();
 
     public Review() {}
@@ -27,6 +29,30 @@ public class Review {
             }
         }
         return null;
+    }
+
+    public Integer getReview_status() {
+        return review_status;
+    }
+
+    public void setReview_status(Integer review_status) {
+        this.review_status = review_status;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
+    }
+
+    public ArrayList<Book> getBooklist() {
+        return booklist;
+    }
+
+    public void setBooklist(ArrayList<Book> booklist) {
+        this.booklist = booklist;
     }
 
     public String getBook_title() {

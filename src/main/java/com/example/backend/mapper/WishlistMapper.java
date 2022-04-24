@@ -10,7 +10,7 @@ import java.util.Date;
 @Mapper
 @Repository
 public interface WishlistMapper {
-    @Select("select w.wish_status, w.user_id, w.book_id, w.wishlist_id, w.wish_date, b.book_title, u.username from wishlist w " +
+    @Select("select w.wish_status, w.user_id, w.book_id, w.wishlist_id, w.wish_date, b.book_author, b.book_title, u.username from wishlist w " +
         "join user u on u.user_id = w.user_id join book b on b.book_id = w.book_id where w.user_id = #{user_id}  ")
     ArrayList<Wishlist> getWishList(int user_id);
 

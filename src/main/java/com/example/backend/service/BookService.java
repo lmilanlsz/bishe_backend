@@ -38,8 +38,12 @@ public class BookService {
         return bookMapper.getBookLikeReport();
     }
 
-    public int updateBookRate(int book_id) {
-        return bookMapper.updateBookRate(book_id);
+    public ArrayList<HashMap<String, String>> getCategoryReport() {
+        return bookMapper.getCategoryReport();
+    }
+
+    public int updateBookRate(int book_id, Float review_rate) {
+        return bookMapper.updateBookRate(book_id, review_rate);
     }
 
     public Book getDetail(int book_id) {
@@ -54,11 +58,36 @@ public class BookService {
         return bookMapper.updateRateNum(book_id);
     }
 
+//    decreaseRateNum
+    public int decreaseRateNum(int book_id) {
+    return bookMapper.decreaseRateNum(book_id);
+}
+
     public ArrayList<Book> getBookByRatedNum() {
         return bookMapper.getBookByRatedNum();
     }
 
     public Book getBookById(int book_id) {
         return bookMapper.getBookById(book_id);
+    }
+
+    public ArrayList<String> getBookTitleList() {
+        return bookMapper.getBookTitleList();
+    }
+
+    public ArrayList<Book> getBookByCategory(String category_name) {
+        return bookMapper.getBookByCategory(category_name);
+    }
+
+    public ArrayList<Book> getGoodBook() {
+        return bookMapper.getGoodBook();
+    }
+
+    public ArrayList<Book> getMidBook() {
+        return bookMapper.getMidBook();
+    }
+
+    public ArrayList<Book> getBadBook() {
+        return bookMapper.getBadBook();
     }
 }

@@ -2,38 +2,20 @@ package com.example.backend.pojo;
 
 import java.util.Date;
 
-public class Wishlist {
+public class Share {
+    public Integer share_id;
     public Integer user_id;
     public Integer book_id;
     public String username;
     public String book_title;
-    public String book_author;
-    public Integer wishlist_id;
-    public Date wish_date;
-    public Integer wish_status;
+    public Date share_date;
 
-    public String getBook_author() {
-        return book_author;
+    public Integer getShare_id() {
+        return share_id;
     }
 
-    public void setBook_author(String book_author) {
-        this.book_author = book_author;
-    }
-
-    public Integer getWish_status() {
-        return wish_status;
-    }
-
-    public void setWish_status(Integer wish_status) {
-        this.wish_status = wish_status;
-    }
-
-    public Date getWish_date() {
-        return wish_date;
-    }
-
-    public void setWish_date(Date wish_date) {
-        this.wish_date = wish_date;
+    public void setShare_id(Integer share_id) {
+        this.share_id = share_id;
     }
 
     public Integer getUser_id() {
@@ -68,11 +50,11 @@ public class Wishlist {
         this.book_title = book_title;
     }
 
-    public Integer getWishlist_id() {
-        return wishlist_id;
+    public Date getShare_date() {
+        return share_date;
     }
 
-    public void setWishlist_id(Integer wishlist_id) {
-        this.wishlist_id = wishlist_id;
+    public void setShare_date(Date share_date) {
+        this.share_date = share_date;
     }
 }

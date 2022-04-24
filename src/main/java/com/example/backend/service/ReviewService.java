@@ -17,6 +17,18 @@ public class ReviewService {
         return reviewMapper.getReviewList();
     }
 
+    public ArrayList<Review> getReviewListByTitle(String book_title) {
+        return reviewMapper.getReviewListByTitle(book_title);
+    }
+
+    public ArrayList<Review> getReviewListByUsername(String username) {
+        return reviewMapper.getReviewListByUsername(username);
+    }
+
+    public ArrayList<Review> getReviewListByRate(Float review_rate) {
+        return reviewMapper.getReviewListByRate(review_rate);
+    }
+
     public int deleteReview(int review_id) {
         return reviewMapper.deleteReview(review_id);
     }
